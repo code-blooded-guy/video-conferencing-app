@@ -107,13 +107,13 @@ let shareRoomBtn;
 let audioBtn;
 let videoBtn;
 let swapCameraBtn;
-let screenShareBtn;
+// let screenShareBtn;
 let recordStreamBtn;
 let fullScreenBtn;
 let chatRoomBtn;
 // let userBtn;
 let myHandBtn;
-let whiteboardBtn;
+// let whiteboardBtn;
 let fileShareBtn;
 // let gameBtn;
 let mySettingsBtn;
@@ -248,12 +248,12 @@ function getHtmlElementsById() {
     audioBtn = getId('audioBtn');
     videoBtn = getId('videoBtn');
     swapCameraBtn = getId('swapCameraBtn');
-    screenShareBtn = getId('screenShareBtn');
+    // screenShareBtn = getId('screenShareBtn');
     recordStreamBtn = getId('recordStreamBtn');
     fullScreenBtn = getId('fullScreenBtn');
     chatRoomBtn = getId('chatRoomBtn');
     // userBtn = getId('userBtn');
-    whiteboardBtn = getId('whiteboardBtn');
+    // whiteboardBtn = getId('whiteboardBtn');
     fileShareBtn = getId('fileShareBtn');
     // gameBtn = getId('gameBtn');
     myHandBtn = getId('myHandBtn');
@@ -370,10 +370,10 @@ function setButtonsTitle() {
         content: 'Click to video OFF',
         placement: 'right-start',
     });
-    tippy(screenShareBtn, {
-        content: 'START screen sharing',
-        placement: 'right-start',
-    });
+    // tippy(screenShareBtn, {
+    //     content: 'START screen sharing',
+    //     placement: 'right-start',
+    // });
     tippy(recordStreamBtn, {
         content: 'START recording',
         placement: 'right-start',
@@ -394,10 +394,10 @@ function setButtonsTitle() {
         content: 'RAISE your hand',
         placement: 'right-start',
     });
-    tippy(whiteboardBtn, {
-        content: 'OPEN the whiteboard',
-        placement: 'right-start',
-    });
+    // tippy(whiteboardBtn, {
+    //     content: 'OPEN the whiteboard',
+    //     placement: 'right-start',
+    // });
     tippy(fileShareBtn, {
         content: 'SHARE the file',
         placement: 'right-start',
@@ -825,7 +825,7 @@ function welcomeUser() {
         } else if (result.isDenied) {
             let message = {
                 email: '',
-                subject: 'Please join our MiroTalk Video Chat Meeting',
+                subject: 'Please join our Event',
                 body: 'Click to join: ' + myRoomUrl,
             };
             shareRoomByEmail(message);
@@ -1085,7 +1085,9 @@ function handleRemovePeer(config) {
     let peer_id = config.peer_id;
 
     if (peer_id in peerMediaElements) {
-        document.body.removeChild(peerMediaElements[peer_id].parentNode);
+        var elem = document.getElementById(peer_id+'_node');
+        elem.parentNode.removeChild(elem);
+        // document.body.removeChild(peer_id+'_menuStatus');
         // resizeVideos();
     }
     if (peer_id in peerConnections) peerConnections[peer_id].close();
@@ -1427,6 +1429,7 @@ function loadLocalMedia(stream) {
         videoWrap.className = 'video six';
         videoWrap.style.height = '';
         var li = document.createElement('li');
+        
         li.appendChild(videoWrap)
         console.log('participants', document.getElementById('participants'))
         document.getElementById('participants').appendChild(li);
@@ -1592,6 +1595,7 @@ function loadRemoteMediaStream(stream, peers, peer_id) {
     } else {
         remoteVideoWrap.className = 'video six';
         var li = document.createElement('li');
+        li.setAttribute('id', peer_id + '_node');
         li.appendChild(remoteVideoWrap)
         console.log('participants', document.getElementById('participants'))
         document.getElementById('participants').appendChild(li);
@@ -1852,14 +1856,14 @@ function manageLeftButtons() {
     setAudioBtn();
     setVideoBtn();
     setSwapCameraBtn();
-    setScreenShareBtn();
+    // setScreenShareBtn();
     setRecordStreamBtn();
     setFullScreenBtn();
     setChatRoomBtn();
     setUserBtn();
     setChatEmojiBtn();
     setMyHandBtn();
-    setMyWhiteboardBtn();
+    // setMyWhiteboardBtn();
     setMyFileShareBtn();
     setMyGameBtn();
     setMySettingsBtn();
@@ -1914,15 +1918,15 @@ function setSwapCameraBtn() {
 /**
  * Check if i can share the screen, if yes show button else hide it
  */
-function setScreenShareBtn() {
-    if (!isMobileDevice && (navigator.getDisplayMedia || navigator.mediaDevices.getDisplayMedia)) {
-        screenShareBtn.addEventListener('click', (e) => {
-            toggleScreenSharing();
-        });
-    } else {
-        screenShareBtn.style.display = 'none';
-    }
-}
+// function setScreenShareBtn() {
+//     if (!isMobileDevice && (navigator.getDisplayMedia || navigator.mediaDevices.getDisplayMedia)) {
+//         screenShareBtn.addEventListener('click', (e) => {
+//             toggleScreenSharing();
+//         });
+//     } else {
+//         screenShareBtn.style.display = 'none';
+//     }
+// }
 
 /**
  * Start - Stop Stream recording
@@ -2204,70 +2208,70 @@ function setMyHandBtn() {
 /**
  * Whiteboard : https://github.com/fabricjs/fabric.js
  */
-function setMyWhiteboardBtn() {
-    dragElement(whiteboard, whiteboardHeader);
+// function setMyWhiteboardBtn() {
+//     dragElement(whiteboard, whiteboardHeader);
 
-    setupWhiteboard();
+//     setupWhiteboard();
 
-    whiteboardBtn.addEventListener('click', (e) => {
-        toggleWhiteboard();
-    });
-    whiteboardPencilBtn.addEventListener('click', (e) => {
-        whiteboardIsDrawingMode(true);
-    });
-    whiteboardObjectBtn.addEventListener('click', (e) => {
-        whiteboardIsDrawingMode(false);
-    });
-    whiteboardUndoBtn.addEventListener('click', (e) => {
-        whiteboardAction(getWhiteboardAction('undo'));
-    });
-    whiteboardRedoBtn.addEventListener('click', (e) => {
-        whiteboardAction(getWhiteboardAction('redo'));
-    });
-    whiteboardSaveBtn.addEventListener('click', (e) => {
-        wbCanvasSaveImg();
-    });
-    whiteboardImgFileBtn.addEventListener('click', (e) => {
-        whiteboardAddObj('imgFile');
-    });
-    whiteboardImgUrlBtn.addEventListener('click', (e) => {
-        whiteboardAddObj('imgUrl');
-    });
-    whiteboardTextBtn.addEventListener('click', (e) => {
-        whiteboardAddObj('text');
-    });
-    whiteboardLineBtn.addEventListener('click', (e) => {
-        whiteboardAddObj('line');
-    });
-    whiteboardRectBtn.addEventListener('click', (e) => {
-        whiteboardAddObj('rect');
-    });
-    whiteboardCircleBtn.addEventListener('click', (e) => {
-        whiteboardAddObj('circle');
-    });
-    whiteboardEraserBtn.addEventListener('click', (e) => {
-        whiteboardIsEraser(true);
-    });
-    whiteboardCleanBtn.addEventListener('click', (e) => {
-        confirmCleanBoard();
-    });
-    whiteboardCloseBtn.addEventListener('click', (e) => {
-        whiteboardAction(getWhiteboardAction('close'));
-    });
-    wbDrawingColorEl.addEventListener('change', (e) => {
-        wbCanvas.freeDrawingBrush.color = wbDrawingColorEl.value;
-        whiteboardIsDrawingMode(true);
-    });
-    wbBackgroundColorEl.addEventListener('change', (e) => {
-        let config = {
-            room_id: roomId,
-            peer_name: myPeerName,
-            action: 'bgcolor',
-            color: wbBackgroundColorEl.value,
-        };
-        whiteboardAction(config);
-    });
-}
+//     whiteboardBtn.addEventListener('click', (e) => {
+//         toggleWhiteboard();
+//     });
+//     whiteboardPencilBtn.addEventListener('click', (e) => {
+//         whiteboardIsDrawingMode(true);
+//     });
+//     whiteboardObjectBtn.addEventListener('click', (e) => {
+//         whiteboardIsDrawingMode(false);
+//     });
+//     whiteboardUndoBtn.addEventListener('click', (e) => {
+//         whiteboardAction(getWhiteboardAction('undo'));
+//     });
+//     whiteboardRedoBtn.addEventListener('click', (e) => {
+//         whiteboardAction(getWhiteboardAction('redo'));
+//     });
+//     whiteboardSaveBtn.addEventListener('click', (e) => {
+//         wbCanvasSaveImg();
+//     });
+//     whiteboardImgFileBtn.addEventListener('click', (e) => {
+//         whiteboardAddObj('imgFile');
+//     });
+//     whiteboardImgUrlBtn.addEventListener('click', (e) => {
+//         whiteboardAddObj('imgUrl');
+//     });
+//     whiteboardTextBtn.addEventListener('click', (e) => {
+//         whiteboardAddObj('text');
+//     });
+//     whiteboardLineBtn.addEventListener('click', (e) => {
+//         whiteboardAddObj('line');
+//     });
+//     whiteboardRectBtn.addEventListener('click', (e) => {
+//         whiteboardAddObj('rect');
+//     });
+//     whiteboardCircleBtn.addEventListener('click', (e) => {
+//         whiteboardAddObj('circle');
+//     });
+//     whiteboardEraserBtn.addEventListener('click', (e) => {
+//         whiteboardIsEraser(true);
+//     });
+//     whiteboardCleanBtn.addEventListener('click', (e) => {
+//         confirmCleanBoard();
+//     });
+//     whiteboardCloseBtn.addEventListener('click', (e) => {
+//         whiteboardAction(getWhiteboardAction('close'));
+//     });
+//     wbDrawingColorEl.addEventListener('change', (e) => {
+//         wbCanvas.freeDrawingBrush.color = wbDrawingColorEl.value;
+//         whiteboardIsDrawingMode(true);
+//     });
+//     wbBackgroundColorEl.addEventListener('change', (e) => {
+//         let config = {
+//             room_id: roomId,
+//             peer_name: myPeerName,
+//             action: 'bgcolor',
+//             color: wbBackgroundColorEl.value,
+//         };
+//         whiteboardAction(config);
+//     });
+// }
 
 /**
  * File Transfer button event click
@@ -2736,7 +2740,8 @@ function showButtonsBarAndMenu() {
         msgerDraggable.style['--msger-bg'] = 'trasparent';
         msgerInput.style.width = '68%';
         msgerHeader.style['justify-content'] = 'space-between';
-        userList.style.padding = '1px'
+        userList.style.padding = '1px';
+        userList.style['margin-left'] = '-50px'
         if(role==='host'){
             myVideoWrap.style.height = '37.5vh';
         }
@@ -2830,7 +2835,7 @@ async function shareRoomUrl() {
             } else if (result.isDenied) {
                 let message = {
                     email: '',
-                    subject: 'Please join our MiroTalk Video Chat Meeting',
+                    subject: 'Please join our Event',
                     body: 'Click to join: ' + shareUrl,
                 };
                 shareRoomByEmail(message);
@@ -3008,16 +3013,16 @@ function toggleScreenSharing() {
  * Set Screen Sharing Status
  * @param {*} status
  */
-function setScreenSharingStatus(status) {
-    screenShareBtn.className = status ? 'fas fa-stop-circle' : 'fas fa-desktop';
-    // only for desktop
-    if (!isMobileDevice) {
-        tippy(screenShareBtn, {
-            content: status ? 'STOP screen sharing' : 'START screen sharing',
-            placement: 'right-start',
-        });
-    }
-}
+// function setScreenSharingStatus(status) {
+//     screenShareBtn.className = status ? 'fas fa-stop-circle' : 'fas fa-desktop';
+//     // only for desktop
+//     if (!isMobileDevice) {
+//         tippy(screenShareBtn, {
+//             content: status ? 'STOP screen sharing' : 'START screen sharing',
+//             placement: 'right-start',
+//         });
+//     }
+// }
 
 /**
  * set myVideoStatus true
