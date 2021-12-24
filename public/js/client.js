@@ -587,17 +587,20 @@ function getPeerGeoLocation() {
  * @return Signaling server URL
  */
 function getSignalingServer() {
+    host = 'https://powerful-citadel-56868.herokuapp.com/'
     if (isHttps) {
-        return 'https://' + 'localhost' + ':' + signalingServerPort;
+        return host
+        // 'https://' + 'localhost' + ':' + signalingServerPort;
         // outside of localhost change it with YOUR-SERVER-DOMAIN
     }
-    return (
-        'http' +
-        (location.hostname == 'localhost' ? '' : 's') +
-        '://' +
-        location.hostname +
-        (location.hostname == 'localhost' ? ':' + signalingServerPort : '')
-    );
+    return (host)
+    // (
+    //     'http' +
+    //     (location.hostname == 'localhost' ? '' : 's') +
+    //     '://' +
+    //     location.hostname +
+    //     (location.hostname == 'localhost' ? ':' + signalingServerPort : '')
+    // );
 }
 
 function getParameterByName(name, url = window.location.href) {

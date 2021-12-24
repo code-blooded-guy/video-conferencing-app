@@ -66,11 +66,13 @@ if (isHttps) {
     };
     server = https.createServer(options, app);
     io = new Server().listen(server);
-    host = 'https://' + 'localhost' + ':' + port;
+    // host = 'https://' + 'localhost' + ':' + port;
+    host = 'https://powerful-citadel-56868.herokuapp.com/'
 } else {
     server = http.createServer(app);
     io = new Server().listen(server);
-    host = 'http://' + 'localhost' + ':' + port;
+    // host = 'http://' + 'localhost' + ':' + port;
+    host = 'https://powerful-citadel-56868.herokuapp.com/'
 }
 
 const ngrok = require('ngrok');
