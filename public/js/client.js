@@ -594,13 +594,13 @@ function getSignalingServer() {
         // outside of localhost change it with YOUR-SERVER-DOMAIN
     }
     // return (host)
-    return (
-        'http' +
-        (location.hostname == 'localhost' ||'127.0.0.1' ? '' : 's') +
-        '://' +
-        location.hostname +
-        (location.hostname == 'localhost' || '127.0.0.1' ? ':' + signalingServerPort : '')
-    );
+    let socketConnectionURL = 'http' +
+    (location.hostname == 'localhost' ||'127.0.0.1' ? '' : 's') +
+    '://' +
+    location.hostname +
+    (location.hostname == 'localhost' || '127.0.0.1' ? ':' + signalingServerPort : '')
+    console.log("socketConnectionURL===", socketConnectionURL)
+    return socketConnectionURL
 }
 
 function getParameterByName(name, url = window.location.href) {
