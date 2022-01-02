@@ -593,14 +593,14 @@ function getSignalingServer() {
         // 'https://' + 'localhost' + ':' + signalingServerPort;
         // outside of localhost change it with YOUR-SERVER-DOMAIN
     }
-    return (host)
-    // (
-    //     'http' +
-    //     (location.hostname == 'localhost' ? '' : 's') +
-    //     '://' +
-    //     location.hostname +
-    //     (location.hostname == 'localhost' ? ':' + signalingServerPort : '')
-    // );
+    // return (host)
+    return (
+        'http' +
+        (location.hostname == 'localhost' ||'127.0.0.1' ? '' : 's') +
+        '://' +
+        location.hostname +
+        (location.hostname == 'localhost' || '127.0.0.1' ? ':' + signalingServerPort : '')
+    );
 }
 
 function getParameterByName(name, url = window.location.href) {
