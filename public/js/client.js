@@ -599,8 +599,7 @@ function getSignalingServer() {
     (location.hostname == 'localhost' ||'127.0.0.1' ? '' : 's') +
     '://' +
     location.hostname +
-    (location.hostname == 'localhost' || '127.0.0.1' ? ':' + signalingServerPort : '')
-    socketConnectionURL = process.env.HOST ||' http://127.0.0.1:3000/'
+    (location.hostname == 'localhost' || '127.0.0.1' ? ':' + signalingServerPort : '/')
     console.log("socketConnectionURL===", socketConnectionURL)
     return socketConnectionURL
 }
