@@ -587,7 +587,7 @@ function getPeerGeoLocation() {
  * @return Signaling server URL
  */
 function getSignalingServer() {
-    host = 'https://powerful-citadel-56868.herokuapp.com/'
+    let host = 'https://powerful-citadel-56868.herokuapp.com/'
     if (isHttps) {
         return host
         // 'https://' + 'localhost' + ':' + signalingServerPort;
