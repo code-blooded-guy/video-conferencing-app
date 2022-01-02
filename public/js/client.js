@@ -1,7 +1,7 @@
 
 'use strict'; // https://www.w3schools.com/js/js_strict.asp
 
-require('dotenv').config();
+// require('dotenv').config();
 const isHttps = false; // must be the same to server.js isHttps
 const signalingServerPort = 3000; // must be the same to server.js PORT
 const signalingServer = getSignalingServer();
@@ -600,7 +600,7 @@ function getSignalingServer() {
     '://' +
     location.hostname +
     (location.hostname == 'localhost' || '127.0.0.1' ? ':' + signalingServerPort : '')
-    socketConnectionURL = process.env.HOST
+    socketConnectionURL = process.env.HOST ||' http://127.0.0.1:3000/'
     console.log("socketConnectionURL===", socketConnectionURL)
     return socketConnectionURL
 }
