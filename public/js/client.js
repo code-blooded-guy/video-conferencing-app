@@ -668,7 +668,7 @@ function initClientPeer() {
     }
 
     console.log('Connecting to signaling server');
-    signalingSocket = io(signalingServer);
+    signalingSocket = io();
 
     console.log('Connecting to signaling server[signalingSocket]', signalingSocket);
 
